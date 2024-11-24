@@ -20,6 +20,7 @@ Este proyecto tiene como objetivo proporcionar una solución eficaz para detecta
 
 ## Modelo Utilizado
 Para la detección de noticias falsas, utilizamos el modelo BART Large MNLI de Facebook, proporcionado por Hugging Face. Este modelo es conocido por su capacidad de entender y analizar el lenguaje natural, lo que lo hace ideal para nuestro propósito de identificar noticias falsas.
+Elegimos el modelo porque ya habia rebasado el limite de la prueba gratuita de openAI y en hugging face los modelos finetuneados para fakenews no estan disponibles como Inference API, igual este modelo es un buen candidato ya que es capaz hasta de realizar clasificacion "zeroshots" dados unos labels 
 
 Funcionamiento del Modelo
 Entrada del Texto: El texto del artículo se envía al modelo BART Large MNLI.
