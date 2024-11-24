@@ -1,5 +1,5 @@
 # FakeNewsDetector
-
+Pd: el token api lo deje asi por si querian correrlo local no tuvieran que crear uno en hugging face
 FakeNewsDetector es una herramienta diseñada para ayudar a identificar y analizar noticias falsas utilizando técnicas avanzadas de procesamiento de lenguaje natural y aprendizaje automático.
 
 ## Descripción
@@ -19,13 +19,16 @@ Este proyecto tiene como objetivo proporcionar una solución eficaz para detecta
 - **Vercel:** Para el despliegue del proyecto.
 
 ## Modelo Utilizado
-Para la detección de noticias falsas, utilizamos el modelo BART Large MNLI de Facebook, proporcionado por Hugging Face. Este modelo es conocido por su capacidad de entender y analizar el lenguaje natural, lo que lo hace ideal para nuestro propósito de identificar noticias falsas.
 
-Funcionamiento del Modelo
-Entrada del Texto: El texto del artículo se envía al modelo BART Large MNLI.
-Análisis del Texto: El modelo analiza el contenido utilizando técnicas de procesamiento de lenguaje natural.
-Detección de Veracidad: Basado en el análisis, el modelo clasifica el artículo como verdadero o falso.
-Resultado: El resultado se muestra en la interfaz de usuario, permitiendo al usuario verificar la veracidad del artículo.
+Para la detección de noticias falsas, utilizamos el modelo `winterForestStump/Roberta-fake-news-detector`, proporcionado por Hugging Face. Este modelo esta preentrenado con miles de noticias tanto falsas como verdaderas lo que lo hace excelente como herramienta de discriminacion.
+
+## Funcionamiento del Modelo
+
+1. **Entrada del Texto:** El texto del artículo se envía al modelo `winterForestStump/Roberta-fake-news-detector`.
+2. **Traducción del Texto:** Si el texto está en español, se traduce al inglés utilizando el modelo `Helsinki-NLP/opus-mt-es-en` ya que el modelo anterior solo funciona en ingles y es el unico que estaba prentrenado para esta tarea y disponible a traves de api.
+3. **Análisis del Texto:** El modelo analiza el contenido utilizando técnicas de procesamiento de lenguaje natural.
+4. **Detección de Veracidad:** Basado en el análisis, el modelo clasifica el artículo como verdadero o falso.
+5. **Resultado:** El resultado se muestra en la interfaz de usuario, permitiendo al usuario verificar la veracidad del artículo.
 
 ## Instalación y Uso
 

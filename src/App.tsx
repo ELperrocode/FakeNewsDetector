@@ -20,7 +20,7 @@ function App() {
     
     try {
       const analysisResult = await analyzeNews(newsText);
-      console.log('Analysis Result:', analysisResult); // Agregar console.log para depuración
+      console.log('Analysis Result:', analysisResult);
       setResult(analysisResult.result);
       setConfidence(analysisResult.confidence);
     } catch (err) {

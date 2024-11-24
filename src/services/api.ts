@@ -1,4 +1,5 @@
 const HUGGING_FACE_API_URL = 'https://api-inference.huggingface.co/models/winterForestStump/Roberta-fake-news-detector';
+const TRANSLATION_API_URL = 'https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-es-en';
 const API_TOKEN = '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';
 
 interface AnalysisResult {
@@ -6,8 +7,35 @@ interface AnalysisResult {
   confidence: number;
 }
 
+const translateText = async (text: string): Promise<string> => {
+  const response = await fetch(
+    TRANSLATION_API_URL,
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${API_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        inputs: text,
+      }),
+    }
+  );
+
+  const result = await response.json();
+  if (result && result[0] && result[0].translation_text) {
+    return result[0].translation_text;
+  } else {
+    throw new Error('Error translating text');
+  }
+};
+
 export const analyzeNews = async (text: string): Promise<AnalysisResult> => {
   try {
+    // Traducir el texto al inglés
+    const translatedText = await translateText(text);
+    console.log('Translated Text:', translatedText); 
+
     const response = await fetch(
       HUGGING_FACE_API_URL,
       {
@@ -16,12 +44,12 @@ export const analyzeNews = async (text: string): Promise<AnalysisResult> => {
           'Content-Type': 'application/json',
         },
         method: 'POST',
-        body: JSON.stringify({ inputs: text }),
+        body: JSON.stringify({ inputs: translatedText }),
       }
     );
 
     const result = await response.json();
-    console.log('API Response:', result); // Agregar console.log para depuración
+    console.log('API Response:', result);
 
     if (!result || !result.length || !result[0].length) {
       throw new Error('Invalid response from API');
@@ -32,7 +60,7 @@ export const analyzeNews = async (text: string): Promise<AnalysisResult> => {
 
     return {
       result: analysisResult,
-      confidence: score * 100, // Convertir a porcentaje
+      confidence: score * 100,
     };
   } catch (error) {
     console.error('Error analyzing news:', error);
