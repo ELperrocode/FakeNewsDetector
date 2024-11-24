@@ -42,3 +42,4 @@ Ejecutar la aplicación:
 npm start
 Visitar en el navegador:
 Abre http://localhost:3000 en tu navegador para ver la aplicación en funcionamiento.
+PD: el ApiKey lo deje así por si iban a descargar el programa y ejecutarlo local no tener que crear uno, no crean que haria esas cosas en un entorno real jasj
